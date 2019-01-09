@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/09 20:01:25 by cmelara-         ###   ########.fr       */
+/*   Updated: 2019/01/09 20:45:12 by cmelara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ typedef struct	s_vector
 	float		z;
 	int			color;
 }				t_vector;
+
+typedef struct	s_line
+{
+	t_vector	start;
+	t_vector	end;
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			err2;
+}				t_line;
 
 typedef struct	s_map
 {
