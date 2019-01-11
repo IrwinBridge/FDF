@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/09 20:45:12 by cmelara-         ###   ########.fr       */
+/*   Updated: 2019/01/11 17:41:45 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
+# include <math.h>
 
 typedef struct	s_vector
 {
@@ -27,14 +28,20 @@ typedef struct	s_vector
 	int			color;
 }				t_vector;
 
+typedef struct	s_matrix4x4
+{
+	int			x[4];
+	int			y[4];
+	int			z[4];
+	int			w[4];
+}				t_matrix4x4;
+
 typedef struct	s_line
 {
-	t_vector	start;
-	t_vector	end;
 	int			dx;
 	int			dy;
-	int			sx;
-	int			sy;
+	int			dirx;
+	int			diry;
 	int			err;
 	int			err2;
 }				t_line;
@@ -43,8 +50,8 @@ typedef struct	s_map
 {
 	int			width;
 	int			height;
-	int			depth_min;
-	int			depth_max;
+	//int			depth_min;
+	//int			depth_max;
 	t_vector	**coords;
 }				t_map;
 
@@ -66,6 +73,16 @@ typedef struct	s_image
 	int			endian;
 }				t_image;
 
+typedef struct	s_camera
+{
+	int			x_offset;
+	int			y_offset;
+	double		x;
+	double		y;
+	double		z;
+	int			scale;
+}				t_camera;
+
 typedef struct	s_mlx
 {
 	void		*mlx;
@@ -73,12 +90,14 @@ typedef struct	s_mlx
 	t_image		*image;
 	t_map		*map;
 	t_mouse		*mouse;
+	t_camera	*camera;
 	float		**zbuf;
 }				t_mlx;
 
 t_mlx			*init(char *title);
 
 void			render(t_mlx *mlx);
+t_vector		projection(t_vector point, t_mlx *mlx);
 
 t_image			*create_image(t_mlx *mlx);
 void			clear_image(t_image *image);
@@ -87,5 +106,9 @@ t_image			*delete_image(t_mlx *mlx, t_image *img);
 
 int				key_release(int keycode, t_mlx *mlx);
 int				close_window(t_mlx *mlx);
+
+t_matrix4x4	matrix4x4_mul(t_matrix4x4 m1, t_matrix4x4 m2);
+t_matrix4x4	matrix4x4_mul_v2(t_matrix4x4 m1, t_matrix4x4 m2);
+void		print_matrix(t_matrix4x4 mat);
 
 #endif
