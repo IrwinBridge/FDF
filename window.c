@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 16:05:51 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 17:37:42 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/11 22:15:30 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,5 @@ t_mlx	*init(char *title)
 	mlx->camera->x_offset = 0;
 	mlx->camera->y_offset = 0;
 	mlx->camera->scale = 10;
-	// TEMP
-	mlx->map->width = 25;
-	mlx->map->height = 25;
 	return (mlx);
 }

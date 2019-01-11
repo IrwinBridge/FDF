@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:54:19 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/11 16:35:26 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/11 22:33:45 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	projected.z = point.z;
 
 	// camera rotation
+	//projected.z = ft_abs((mlx->map->depth_max - mlx->map->depth_min) / 2);
 	projected = rotate(projected, mlx);
 
 	// camera offset
@@ -78,7 +79,6 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	// camera zoom
 	projected.x *= mlx->camera->scale;
 	projected.y *= mlx->camera->scale;
-	projected.z *= mlx->camera->scale;
 
 	// camera positionning to world center
 	projected.x += WINDOW_WIDTH / 2 - (mlx->map->width * mlx->camera->scale / 2);

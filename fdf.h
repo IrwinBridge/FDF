@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 17:41:45 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/11 22:25:42 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
+# include "get_next_line.h"
 # include <math.h>
 
 typedef struct	s_vector
@@ -50,9 +51,10 @@ typedef struct	s_map
 {
 	int			width;
 	int			height;
-	//int			depth_min;
-	//int			depth_max;
-	t_vector	**coords;
+	int			depth_min;
+	int			depth_max;
+	//t_vector	**coords;
+	int			*z;
 }				t_map;
 
 typedef struct	s_mouse
@@ -106,6 +108,9 @@ t_image			*delete_image(t_mlx *mlx, t_image *img);
 
 int				key_release(int keycode, t_mlx *mlx);
 int				close_window(t_mlx *mlx);
+t_mlx			*mlx_free(t_mlx *mlx);
+
+void			read_map(int fd, t_map *map);
 
 t_matrix4x4	matrix4x4_mul(t_matrix4x4 m1, t_matrix4x4 m2);
 t_matrix4x4	matrix4x4_mul_v2(t_matrix4x4 m1, t_matrix4x4 m2);

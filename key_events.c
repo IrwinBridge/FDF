@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:13:46 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 16:27:52 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/11 19:11:22 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 int	key_release(int keycode, t_mlx *mlx)
 {
-	//printf("code: %d\n", keycode);
-	if (keycode == 0xFF1B) // 53 on MAC
+	if (keycode == 0xFF1B)
+	{
+		mlx_free(mlx);
 		exit(EXIT_SUCCESS);
+	}
 	if (keycode == 0xFF51) // left
 	{
 		mlx->camera->x_offset--;
@@ -87,7 +89,7 @@ int	key_release(int keycode, t_mlx *mlx)
 
 int	close_window(t_mlx *mlx)
 {
-	(void)mlx;
+	mlx_free(mlx);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
