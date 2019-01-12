@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:45:27 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 22:18:20 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 23:34:05 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_gradient_color(t_vector start, t_vector end, t_vector current)
 	return (get_gradient_at(percentage, start.color, end.color));
 }
 
-void	draw_line(t_mlx *mlx, t_vector p1, t_vector p2)
+void	rasterize(t_mlx *mlx, t_vector p1, t_vector p2)
 {
 	t_line line;
 
@@ -41,6 +41,10 @@ void	draw_line(t_mlx *mlx, t_vector p1, t_vector p2)
 	line.dirx = p1.x < p2.x ? 1 : -1;
 	line.diry = p1.y < p2.y ? 1 : -1;
 	line.err = line.dx + line.dy;
+
+	// line clipping according to window size
+	if (!clipping(p1, p2))
+		return ;
 
 	while (1)
 	{
@@ -87,9 +91,9 @@ void	render(t_mlx *mlx)
 		{
 			point = projection(point_at(mlx->map, x, y), mlx);
 			if (x + 1 < mlx->map->width)
-				draw_line(mlx, point, projection(point_at(mlx->map, x + 1, y), mlx));
+				rasterize(mlx, point, projection(point_at(mlx->map, x + 1, y), mlx));
 			if (y + 1 < mlx->map->height)
-				draw_line(mlx, point, projection(point_at(mlx->map, x, y + 1), mlx));
+				rasterize(mlx, point, projection(point_at(mlx->map, x, y + 1), mlx));
 			y++;
 		}
 		x++;

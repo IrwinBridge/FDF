@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:13:46 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 15:04:38 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/13 00:04:17 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,80 +15,74 @@
 
 int	key_release(int keycode, t_mlx *mlx)
 {
-	if (keycode == 0xFF1B)
+	if (keycode == KEY_ESC)
 	{
 		mlx_free(mlx);
 		exit(EXIT_SUCCESS);
 	}
-	if (keycode == 0xFF51) // left
+	if (keycode == KEY_LEFT)
 	{
 		mlx->camera->x_offset--;
 		render(mlx);
 	}
-	if (keycode == 0xFF52) // up
+	if (keycode == KEY_UP)
 	{
 		mlx->camera->y_offset++;
 		render(mlx);
 	}
-	if (keycode == 0xFF53) // right
+	if (keycode == KEY_RIGHT)
 	{
 		mlx->camera->x_offset++;
 		render(mlx);
 	}
-	if (keycode == 0xFF54) // down
+	if (keycode == KEY_DOWN)
 	{
 		mlx->camera->y_offset--;
 		render(mlx);
 	}
-
-	if (keycode == 0xFFAB) // zoom in
+	if (keycode == KEY_PLUS)
 	{
 		mlx->camera->scale = (mlx->camera->scale + mlx->map->scale_factor < 100.0f) ?
 								mlx->camera->scale + mlx->map->scale_factor : 100.0f;
 		render(mlx);
 	}
-	if (keycode == 0xFFAD) // zoom out
+	if (keycode == KEY_MINUS)
 	{
 		mlx->camera->scale = (mlx->camera->scale - mlx->map->scale_factor > 0.0f) ?
 								mlx->camera->scale - mlx->map->scale_factor : 1.0f;
 		render(mlx);
 	}
-
-	if (keycode == 0x71) // z-rotation <- q
+	if (keycode == KEY_Q)
 	{
 		mlx->camera->z -= mlx->map->scale_factor;
 		render(mlx);
 	}
-	if (keycode == 0x65) // z-rotation -> e
+	if (keycode == KEY_E)
 	{
 		mlx->camera->z += mlx->map->scale_factor;
 		render(mlx);
 	}
-
-	if (keycode == 0xFF97) // x-rotation <- num8
+	if (keycode == KEY_NUM8)
 	{
 		mlx->camera->x -= mlx->map->scale_factor;
 		render(mlx);
 	}
-	if (keycode == 0xFF99) // x-rotation -> num2
+	if (keycode == KEY_NUM2)
 	{
 		mlx->camera->x += mlx->map->scale_factor;
 		render(mlx);
 	}
-
-	if (keycode == 0xFF96) // y-rotation <- num4
+	if (keycode == KEY_NUM4)
 	{
 		mlx->camera->y -= mlx->map->scale_factor;
 		render(mlx);
 	}
-	if (keycode == 0xFF98) // y-rotation -> num6
+	if (keycode == KEY_NUM6)
 	{
 		mlx->camera->y += mlx->map->scale_factor;
 		render(mlx);
 	}
-
-	// change projection
-	if (keycode == 0xFF9D)
+	if (keycode == KEY_NUM5)
 	{
 		mlx->camera->proj = (mlx->camera->proj == ISO) ? PARALLEL : ISO;
 		render(mlx);

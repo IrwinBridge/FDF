@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 21:57:28 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 23:57:32 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include <math.h>
+# include "keymap.h"
 
 typedef enum	e_proj
 {
@@ -37,14 +38,6 @@ typedef struct	s_vector
 	double		z;
 	int			color;
 }				t_vector;
-
-typedef struct	s_matrix4x4
-{
-	int			x[4];
-	int			y[4];
-	int			z[4];
-	int			w[4];
-}				t_matrix4x4;
 
 typedef struct	s_line
 {
@@ -124,14 +117,11 @@ t_mlx			*mlx_free(t_mlx *mlx);
 
 void			read_map(int fd, t_map *map);
 
-t_matrix4x4	matrix4x4_mul(t_matrix4x4 m1, t_matrix4x4 m2);
-t_matrix4x4	matrix4x4_mul_v2(t_matrix4x4 m1, t_matrix4x4 m2);
-void		print_matrix(t_matrix4x4 mat);
-
 int		max(int *a, int size);
 int		min(int *a, int size);
 double	percent(int start, int end, int current);
 int		ft_lerp(int start, int end, double percentage);
 int		get_gradient_at(double percentage, int start_color, int end_color);
+int	clipping(t_vector p1, t_vector p2);
 
 #endif
