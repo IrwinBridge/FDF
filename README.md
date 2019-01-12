@@ -1,2 +1,2 @@
 # FDF
-WIP
+Mandatory part of the project has been done.
