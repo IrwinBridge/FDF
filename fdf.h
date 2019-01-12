@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 22:25:42 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 13:27:51 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 typedef struct	s_vector
 {
-	float		x;
-	float		y;
-	float		z;
+	double		x;
+	double		y;
+	double		z;
 	int			color;
 }				t_vector;
 
@@ -53,7 +53,7 @@ typedef struct	s_map
 	int			height;
 	int			depth_min;
 	int			depth_max;
-	//t_vector	**coords;
+	double		scale_factor;
 	int			*z;
 }				t_map;
 
@@ -77,12 +77,12 @@ typedef struct	s_image
 
 typedef struct	s_camera
 {
-	int			x_offset;
-	int			y_offset;
+	double		x_offset;
+	double		y_offset;
 	double		x;
 	double		y;
 	double		z;
-	int			scale;
+	double		scale;
 }				t_camera;
 
 typedef struct	s_mlx

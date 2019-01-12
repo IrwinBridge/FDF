@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:45:27 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 22:37:06 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 13:29:47 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_vector	point_at(t_map *map, int x, int y)
 	point.x = x;
 	point.y = y;
 	point.z = map->z[y * map->width + x];
-	//point.z -= (int)((map->depth_max - map->depth_min) / 2);
 	return (point);
 }
 

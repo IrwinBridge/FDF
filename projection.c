@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:54:19 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/11 22:33:45 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 13:04:35 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 double		to_rad(double a)
 {
 	return (a * M_PI / 180);
+}
+
+double		normalize(double val, double min, double max)
+{
+	return ((val - min) / (max - min));
 }
 
 t_vector	rotate(t_vector point, t_mlx *mlx)
@@ -62,14 +67,17 @@ t_vector	rotate(t_vector point, t_mlx *mlx)
 
 t_vector	projection(t_vector point, t_mlx *mlx)
 {
-	t_vector projected;
+	t_vector	projected;
+	double		z_scale;
 
-	projected.x = point.x;
-	projected.y = point.y;
-	projected.z = point.z;
+	// pivot point
+	projected.x = point.x - mlx->map->width / 2;
+	projected.y = point.y - mlx->map->height / 2;
+	z_scale = (double)(mlx->map->depth_min + mlx->map->depth_max) / 2.0f;
+	projected.z = (double)normalize(point.z, mlx->map->depth_min, mlx->map->depth_max)
+					* z_scale;
 
 	// camera rotation
-	//projected.z = ft_abs((mlx->map->depth_max - mlx->map->depth_min) / 2);
 	projected = rotate(projected, mlx);
 
 	// camera offset
@@ -80,9 +88,9 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	projected.x *= mlx->camera->scale;
 	projected.y *= mlx->camera->scale;
 
-	// camera positionning to world center
-	projected.x += WINDOW_WIDTH / 2 - (mlx->map->width * mlx->camera->scale / 2);
-	projected.y += WINDOW_HEIGHT / 2 - (mlx->map->height * mlx->camera->scale / 2);
+	// camera positioning to world center
+	projected.x += WINDOW_WIDTH / 2;
+	projected.y += WINDOW_HEIGHT / 2;
 
 	projected.x = (int)projected.x;
 	projected.y = (int)projected.y;

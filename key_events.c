@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:13:46 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/11 19:11:22 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 13:40:23 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,47 @@ int	key_release(int keycode, t_mlx *mlx)
 
 	if (keycode == 0xFFAB) // zoom in
 	{
-		mlx->camera->scale += 10;
+		mlx->camera->scale = (mlx->camera->scale + mlx->map->scale_factor < 100.0f) ?
+								mlx->camera->scale + mlx->map->scale_factor : 100.0f;
 		render(mlx);
 	}
 	if (keycode == 0xFFAD) // zoom out
 	{
-		mlx->camera->scale -= 10;
+		mlx->camera->scale = (mlx->camera->scale - mlx->map->scale_factor > 0.0f) ?
+								mlx->camera->scale - mlx->map->scale_factor : 1.0f;
 		render(mlx);
 	}
 
 	if (keycode == 0x71) // z-rotation <- q
 	{
-		mlx->camera->z -= mlx->camera->scale;
+		mlx->camera->z -= mlx->map->scale_factor;
 		render(mlx);
 	}
 	if (keycode == 0x65) // z-rotation -> e
 	{
-		mlx->camera->z += mlx->camera->scale;
+		mlx->camera->z += mlx->map->scale_factor;
 		render(mlx);
 	}
 
 	if (keycode == 0xFF97) // x-rotation <- num8
 	{
-		mlx->camera->x -= mlx->camera->scale;
+		mlx->camera->x -= mlx->map->scale_factor;
 		render(mlx);
 	}
 	if (keycode == 0xFF99) // x-rotation -> num2
 	{
-		mlx->camera->x += mlx->camera->scale;
+		mlx->camera->x += mlx->map->scale_factor;
 		render(mlx);
 	}
 
 	if (keycode == 0xFF96) // y-rotation <- num4
 	{
-		mlx->camera->y -= mlx->camera->scale;
+		mlx->camera->y -= mlx->map->scale_factor;
 		render(mlx);
 	}
 	if (keycode == 0xFF98) // y-rotation -> num6
 	{
-		mlx->camera->y += mlx->camera->scale;
+		mlx->camera->y += mlx->map->scale_factor;
 		render(mlx);
 	}
 	return (0);
