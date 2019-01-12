@@ -6,25 +6,46 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:45:27 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 13:29:47 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 22:18:20 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "stdio.h"
 
-void draw_line(t_mlx *mlx, t_vector p1, t_vector p2)
+int		get_gradient_color(t_vector start, t_vector end, t_vector current)
+{
+	int		dx;
+	int		dy;
+	double	percentage;
+
+	dx = ft_abs(end.x - start.x);
+	dy = ft_abs(end.y - start.y);
+
+	if (dx > dy)
+		percentage = percent(start.x, end.x, current.x);
+	else
+		percentage = percent(start.y, end.y, current.y);
+
+	return (get_gradient_at(percentage, start.color, end.color));
+}
+
+void	draw_line(t_mlx *mlx, t_vector p1, t_vector p2)
 {
 	t_line line;
 
+	line.start = p1;
+	line.end = p2;
 	line.dx = ft_abs(p2.x - p1.x);
 	line.dy = -ft_abs(p2.y - p1.y);
 	line.dirx = p1.x < p2.x ? 1 : -1;
 	line.diry = p1.y < p2.y ? 1 : -1;
 	line.err = line.dx + line.dy;
+
 	while (1)
 	{
-		image_set_pixel(mlx->image, p1.x, p1.y, 0xFF00FF);
+		image_set_pixel(mlx->image, p1.x, p1.y,
+							get_gradient_color(line.start, line.end, p1));
 		if (p1.x == p2.x && p1.y == p2.y)
 			break ;
 		line.err2 = 2 * line.err;
@@ -45,7 +66,6 @@ t_vector	point_at(t_map *map, int x, int y)
 {
 	t_vector point;
 
-	(void)map;
 	point.x = x;
 	point.y = y;
 	point.z = map->z[y * map->width + x];

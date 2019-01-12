@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:13:46 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 13:40:23 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 15:04:38 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ int	key_release(int keycode, t_mlx *mlx)
 	if (keycode == 0xFF98) // y-rotation -> num6
 	{
 		mlx->camera->y += mlx->map->scale_factor;
+		render(mlx);
+	}
+
+	// change projection
+	if (keycode == 0xFF9D)
+	{
+		mlx->camera->proj = (mlx->camera->proj == ISO) ? PARALLEL : ISO;
 		render(mlx);
 	}
 	return (0);

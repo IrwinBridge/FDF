@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 14:58:13 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 13:36:01 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 14:01:34 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	main(int argc, char **argv)
 	if (!(mlx = init("FDF")))
 		return (exit_with_message("error: mlx wasn't be able to init!"));
 	read_map(fd, mlx->map);
-	mlx->camera->scale = (double)((WINDOW_WIDTH - 50) / mlx->map->width);
+	if (mlx->map->width > mlx->map->height)
+		mlx->camera->scale = (double)((WINDOW_WIDTH - 50) / mlx->map->width);
+	else
+		mlx->camera->scale = (double)((WINDOW_HEIGHT - 50) / mlx->map->height);
 	mlx->map->scale_factor = 5.0f;
 	render(mlx);
 	mlx_hook(mlx->window, 3, KeyReleaseMask, key_release, mlx);

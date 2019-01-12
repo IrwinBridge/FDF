@@ -6,40 +6,12 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 18:42:56 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/12 13:35:11 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 19:45:21 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "stdio.h"
-
-int		max(int *a, int size)
-{
-	int max;
-	int i;
-
-	i = 0;
-	while (i < size)
-	{
-		max = a[i] > max ? a[i] : max;
-		i++;
-	}
-	return (max);
-}
-
-int		min(int *a, int size)
-{
-	int min;
-	int i;
-
-	i = 0;
-	while (i < size)
-	{
-		min = a[i] < min ? a[i] : min;
-		i++;
-	}
-	return (min);
-}
 
 void	read_map(int fd, t_map *map)
 {

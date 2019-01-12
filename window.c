@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 16:05:51 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 13:30:23 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 14:55:13 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ t_mlx	*init(char *title)
 		return (mlx_free(mlx));
 	mlx->camera->x_offset = 0.0f;
 	mlx->camera->y_offset = 0.0f;
+	mlx->camera->proj = ISO;
 	return (mlx);
 }

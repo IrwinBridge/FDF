@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:54:19 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/12 13:04:35 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 22:31:38 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ double		to_rad(double a)
 double		normalize(double val, double min, double max)
 {
 	return ((val - min) / (max - min));
+}
+
+void		iso(double *x, double *y, double z)
+{
+    double previous_x;
+    double previous_y;
+
+    previous_x = *x;
+    previous_y = *y;
+    *x = (previous_x - previous_y) * cos(0.523599);
+    *y = -z + (previous_x + previous_y) * sin(0.523599);
 }
 
 t_vector	rotate(t_vector point, t_mlx *mlx)
@@ -80,9 +91,13 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	// camera rotation
 	projected = rotate(projected, mlx);
 
+	// camera projection
+	if (mlx->camera->proj == ISO)
+		iso(&(projected.x), &(projected.y), projected.z);
+
 	// camera offset
-	projected.x += mlx->camera->x_offset;
-	projected.y -= mlx->camera->y_offset;
+	projected.x -= mlx->camera->x_offset;
+	projected.y += mlx->camera->y_offset;
 
 	// camera zoom
 	projected.x *= mlx->camera->scale;
@@ -94,7 +109,12 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 
 	projected.x = (int)projected.x;
 	projected.y = (int)projected.y;
-	projected.z = (int)projected.z;
+
+	// setting color according to z
+	double z_percentage = percent(mlx->map->depth_min,
+									mlx->map->depth_max,
+									point.z);
+	projected.color = get_gradient_at(z_percentage, START_COLOR, END_COLOR);
 
 	return (projected);
 }

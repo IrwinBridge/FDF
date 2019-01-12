@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 13:27:51 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/12 21:57:28 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,19 @@
 # define WINDOW_WIDTH	1280
 # define WINDOW_HEIGHT	720
 
+# define START_COLOR	0xFFFFFF
+# define END_COLOR		0xFF0000
+
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include <math.h>
+
+typedef enum	e_proj
+{
+	ISO,
+	PARALLEL
+}				t_proj;
 
 typedef struct	s_vector
 {
@@ -39,6 +48,8 @@ typedef struct	s_matrix4x4
 
 typedef struct	s_line
 {
+	t_vector	start;
+	t_vector	end;
 	int			dx;
 	int			dy;
 	int			dirx;
@@ -83,6 +94,7 @@ typedef struct	s_camera
 	double		y;
 	double		z;
 	double		scale;
+	t_proj		proj;
 }				t_camera;
 
 typedef struct	s_mlx
@@ -115,5 +127,11 @@ void			read_map(int fd, t_map *map);
 t_matrix4x4	matrix4x4_mul(t_matrix4x4 m1, t_matrix4x4 m2);
 t_matrix4x4	matrix4x4_mul_v2(t_matrix4x4 m1, t_matrix4x4 m2);
 void		print_matrix(t_matrix4x4 mat);
+
+int		max(int *a, int size);
+int		min(int *a, int size);
+double	percent(int start, int end, int current);
+int		ft_lerp(int start, int end, double percentage);
+int		get_gradient_at(double percentage, int start_color, int end_color);
 
 #endif
