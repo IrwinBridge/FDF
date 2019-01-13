@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/12 23:57:32 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/13 11:06:17 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct	s_camera
 	double		y;
 	double		z;
 	double		scale;
+	double		z_scale;
 	t_proj		proj;
 }				t_camera;
 
@@ -102,9 +103,12 @@ typedef struct	s_mlx
 }				t_mlx;
 
 t_mlx			*init(char *title);
+void			read_map(int fd, t_map *map);
+t_mlx			*mlx_free(t_mlx *mlx);
 
 void			render(t_mlx *mlx);
 t_vector		projection(t_vector point, t_mlx *mlx);
+int				clipping(t_vector p1, t_vector p2);
 
 t_image			*create_image(t_mlx *mlx);
 void			clear_image(t_image *image);
@@ -113,15 +117,11 @@ t_image			*delete_image(t_mlx *mlx, t_image *img);
 
 int				key_release(int keycode, t_mlx *mlx);
 int				close_window(t_mlx *mlx);
-t_mlx			*mlx_free(t_mlx *mlx);
 
-void			read_map(int fd, t_map *map);
-
-int		max(int *a, int size);
-int		min(int *a, int size);
-double	percent(int start, int end, int current);
-int		ft_lerp(int start, int end, double percentage);
-int		get_gradient_at(double percentage, int start_color, int end_color);
-int	clipping(t_vector p1, t_vector p2);
+int				max(int *a, int size);
+int				min(int *a, int size);
+double			percent(int start, int end, int current);
+int				ft_lerp(int start, int end, double percentage);
+int				get_gradient_at(double percentage, int start_color, int end_color);
 
 #endif

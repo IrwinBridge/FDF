@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:54:19 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/12 22:31:38 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/13 11:32:09 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ double		to_rad(double a)
 
 double		normalize(double val, double min, double max)
 {
-	return ((val - min) / (max - min));
+	if (max - min != 0)
+		return ((double)(val - min) / (double)(max - min));
+	else
+		return (0);
 }
 
 void		iso(double *x, double *y, double z)
@@ -79,14 +82,16 @@ t_vector	rotate(t_vector point, t_mlx *mlx)
 t_vector	projection(t_vector point, t_mlx *mlx)
 {
 	t_vector	projected;
-	double		z_scale;
+	double		z_percentage;
 
 	// pivot point
 	projected.x = point.x - mlx->map->width / 2;
 	projected.y = point.y - mlx->map->height / 2;
-	z_scale = (double)(mlx->map->depth_min + mlx->map->depth_max) / 2.0f;
-	projected.z = (double)normalize(point.z, mlx->map->depth_min, mlx->map->depth_max)
-					* z_scale;
+
+	// also make camera move to initial position by pressing num0
+	projected.z = (double)normalize(point.z,
+									mlx->map->depth_min, mlx->map->depth_max)
+									* mlx->camera->z_scale;
 
 	// camera rotation
 	projected = rotate(projected, mlx);
@@ -111,7 +116,7 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	projected.y = (int)projected.y;
 
 	// setting color according to z
-	double z_percentage = percent(mlx->map->depth_min,
+	z_percentage = percent(mlx->map->depth_min,
 									mlx->map->depth_max,
 									point.z);
 	projected.color = get_gradient_at(z_percentage, START_COLOR, END_COLOR);

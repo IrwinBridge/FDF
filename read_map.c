@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 18:42:56 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/12 19:45:21 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/13 11:07:07 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	read_map(int fd, t_map *map)
 	i = 0;
 	while (i < numbers_count)
 	{
-		map->z[i] = atoi(zs[i]);
+		map->z[i] = atoi(zs[i]); // TODO: ft_getnbr = ft_atoi + ft_atoi_hex
 		i++;
 	}
 

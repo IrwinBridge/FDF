@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 23:54:35 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/13 00:04:10 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/13 11:29:04 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,9 @@
 # define KEY_NUM4	0xFF96
 # define KEY_NUM6	0xFF98
 # define KEY_NUM5	0xFF9D
+# define KEY_NUM0	0xFF9E
+
+# define KEY_PGUP	0xFF55
+# define KEY_PGDOWN	0xFF56
 
 #endif
