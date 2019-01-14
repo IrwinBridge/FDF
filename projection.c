@@ -6,44 +6,56 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 17:54:19 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/13 11:32:09 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 17:19:50 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-double		to_rad(double a)
+void		iso(t_vector *p)
 {
-	return (a * M_PI / 180);
+    float x;
+    float y;
+
+    x = p->x;
+    y = p->y;
+    p->x = (x - y) * cos(0.523599);
+    p->y = -p->z + (x + y) * sin(0.523599);
 }
 
-double		normalize(double val, double min, double max)
+void		dimetric(t_vector *p)
 {
-	if (max - min != 0)
-		return ((double)(val - min) / (double)(max - min));
-	else
-		return (0);
+	float x;
+	float y;
+
+	x = p->x;
+	y = p->y;
+	p->x = x * cos(0.122173f) + (y * cos(0.733038f) * 0.5f);
+	p->y = -p->z + (y * sin(0.733038f) * 0.5f) - x * sin(0.122173f);
 }
 
-void		iso(double *x, double *y, double z)
+void		perspective(t_vector *p)
 {
-    double previous_x;
-    double previous_y;
+	float x;
+	float y;
+	float z;
 
-    previous_x = *x;
-    previous_y = *y;
-    *x = (previous_x - previous_y) * cos(0.523599);
-    *y = -z + (previous_x + previous_y) * sin(0.523599);
+	x = p->x;
+	y = p->y;
+	z = p->z;
+	p->x = x / (-0.005f * z + 1.0f);
+	p->y = y / (-0.005f * z + 1.0f);
+	p->z = z / (-0.005f * z + 1.0f);
 }
 
 t_vector	rotate(t_vector point, t_mlx *mlx)
 {
 	t_vector	rotated;
-	double		x, y, z;
-	double		rot_x;
-	double		rot_y;
-	double		rot_z;
+	float		x, y, z;
+	float		rot_x;
+	float		rot_y;
+	float		rot_z;
 
 	rot_x = to_rad(mlx->camera->x);
 	rot_y = to_rad(mlx->camera->y);
@@ -87,18 +99,17 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 	// pivot point
 	projected.x = point.x - mlx->map->width / 2;
 	projected.y = point.y - mlx->map->height / 2;
-
-	// also make camera move to initial position by pressing num0
-	projected.z = (double)normalize(point.z,
-									mlx->map->depth_min, mlx->map->depth_max)
-									* mlx->camera->z_scale;
+	projected.z = normalize(point.z, mlx->map->depth_min,
+									mlx->map->depth_max) * mlx->camera->z_scale;
 
 	// camera rotation
 	projected = rotate(projected, mlx);
 
 	// camera projection
 	if (mlx->camera->proj == ISO)
-		iso(&(projected.x), &(projected.y), projected.z);
+		iso(&projected);
+	else if (mlx->camera->proj == PARALLEL)
+		perspective(&projected);
 
 	// camera offset
 	projected.x -= mlx->camera->x_offset;
@@ -114,6 +125,7 @@ t_vector	projection(t_vector point, t_mlx *mlx)
 
 	projected.x = (int)projected.x;
 	projected.y = (int)projected.y;
+	projected.z = (int)projected.z;
 
 	// setting color according to z
 	z_percentage = percent(mlx->map->depth_min,

@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 15:57:35 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/13 11:06:17 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 20:00:52 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "get_next_line.h"
 # include <math.h>
 # include "keymap.h"
+#include <X11/X.h>
 
 typedef enum	e_proj
 {
@@ -33,9 +34,9 @@ typedef enum	e_proj
 
 typedef struct	s_vector
 {
-	double		x;
-	double		y;
-	double		z;
+	float	x;
+	float	y;
+	float	z;
 	int			color;
 }				t_vector;
 
@@ -57,13 +58,13 @@ typedef struct	s_map
 	int			height;
 	int			depth_min;
 	int			depth_max;
-	double		scale_factor;
+	float		scale_factor;
 	int			*z;
 }				t_map;
 
 typedef struct	s_mouse
 {
-	char		is_down;
+	char		isdown;
 	int			x;
 	int			y;
 	int			prev_x;
@@ -81,13 +82,13 @@ typedef struct	s_image
 
 typedef struct	s_camera
 {
-	double		x_offset;
-	double		y_offset;
-	double		x;
-	double		y;
-	double		z;
-	double		scale;
-	double		z_scale;
+	float		x_offset;
+	float		y_offset;
+	float		x;
+	float		y;
+	float		z;
+	float		scale;
+	float		z_scale;
 	t_proj		proj;
 }				t_camera;
 
@@ -99,14 +100,13 @@ typedef struct	s_mlx
 	t_map		*map;
 	t_mouse		*mouse;
 	t_camera	*camera;
-	float		**zbuf;
 }				t_mlx;
 
 t_mlx			*init(char *title);
 void			read_map(int fd, t_map *map);
 t_mlx			*mlx_free(t_mlx *mlx);
 
-void			render(t_mlx *mlx);
+int				render(t_mlx *mlx);
 t_vector		projection(t_vector point, t_mlx *mlx);
 int				clipping(t_vector p1, t_vector p2);
 
@@ -118,10 +118,16 @@ t_image			*delete_image(t_mlx *mlx, t_image *img);
 int				key_release(int keycode, t_mlx *mlx);
 int				close_window(t_mlx *mlx);
 
+int				hook_mousedown(int button, int x, int y, t_mlx *mlx);
+int				hook_mouseup(int button, int x, int y, t_mlx *mlx);
+int				hook_mousemove(int x, int y, t_mlx *mlx);
+
 int				max(int *a, int size);
 int				min(int *a, int size);
-double			percent(int start, int end, int current);
-int				ft_lerp(int start, int end, double percentage);
-int				get_gradient_at(double percentage, int start_color, int end_color);
+float			percent(int start, int end, int current);
+int				ft_lerp(int start, int end, float percentage);
+int				get_gradient_at(float percentage, int start_color, int end_color);
+float			to_rad(float a);
+float			normalize(float val, float min, float max);
 
 #endif

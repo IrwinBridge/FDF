@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 19:44:43 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/13 10:54:26 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 17:03:02 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ int		min(int *a, int size)
 	return (min);
 }
 
-double	percent(int start, int end, int current)
+float	percent(int start, int end, int current)
 {
 	if (end - start != 0)
-		return ((double)(current - start) / (double)(end - start));
+		return ((float)(current - start) / (float)(end - start));
 	else
 		return (0);
 }
 
-int		ft_lerp(int start, int end, double percentage)
+int		ft_lerp(int start, int end, float percentage)
 {
 	return (start + (end - start) * percentage);
 }
 
-int		get_gradient_at(double percentage, int start_color, int end_color)
+int		get_gradient_at(float percentage, int start_color, int end_color)
 {
 	int r;
 	int g;

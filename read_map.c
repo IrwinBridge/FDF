@@ -6,7 +6,7 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 18:42:56 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/13 11:07:07 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 17:25:37 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	read_map(int fd, t_map *map)
 				i++;
 		}
 	}
-	map->width = numbers_count / map->height; // maybe wrong bcause of raound to int
+	map->width = numbers_count / map->height;
 	char **zs = ft_strsplit(map_str, ' ');
 	if (!(map->z = (int *)malloc(sizeof(int) * numbers_count)))
 		return ;
