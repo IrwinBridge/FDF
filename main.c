@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 14:58:13 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/14 19:37:33 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 21:04:50 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	exit_with_message(char *msg)
 
 void	setting(t_mlx *mlx)
 {
+	mlx->map->start_color = START_COLOR;
+	mlx->map->end_color = END_COLOR;
 	mlx->map->scale_factor = 0.5f;
 	if (mlx->map->width > mlx->map->height)
 		mlx->camera->scale = (double)((WINDOW_WIDTH - 50) / mlx->map->width);

@@ -6,12 +6,16 @@
 /*   By: jefferso <jefferso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 23:54:35 by jefferso          #+#    #+#             */
-/*   Updated: 2019/01/13 11:29:04 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 21:10:15 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYMAP_H
 # define KEYMAP_H
+
+/*
+** LINUX UBUNTU KEYMAPS
+*/
 
 # define KEY_ESC	0xFF1B
 
@@ -35,5 +39,12 @@
 
 # define KEY_PGUP	0xFF55
 # define KEY_PGDOWN	0xFF56
+
+# define KEY_1		0x31
+# define KEY_2		0x32
+# define KEY_3		0x33
+
+# define KEY_B_O	0x5B
+# define KEY_B_C	0x5D
 
 #endif

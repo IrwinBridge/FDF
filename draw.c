@@ -6,7 +6,7 @@
 /*   By: cmelara- <cmelara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/09 18:45:27 by cmelara-          #+#    #+#             */
-/*   Updated: 2019/01/14 19:18:16 by jeffersoncity    ###   ########.fr       */
+/*   Updated: 2019/01/14 20:59:10 by jeffersoncity    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ int			render(t_mlx *mlx)
 		y = 0;
 		while (y < mlx->map->height)
 		{
-			point = projection(point_at(mlx->map, x, y), mlx);
+			point = transform(point_at(mlx->map, x, y), mlx);
 			if (x + 1 < mlx->map->width)
 				draw_line(mlx, point,
-						projection(point_at(mlx->map, x + 1, y), mlx));
+						transform(point_at(mlx->map, x + 1, y), mlx));
 			if (y + 1 < mlx->map->height)
 				draw_line(mlx, point,
-						projection(point_at(mlx->map, x, y + 1), mlx));
+						transform(point_at(mlx->map, x, y + 1), mlx));
 			y++;
 		}
 		x++;
